@@ -1,0 +1,8 @@
+.idea
+.DS_Store
+swagger-editor
+swagger-ui
+api/*/vendor
+swagger-editor/*/node_modules
+swagger-ui/*/node_modules
+node_modules

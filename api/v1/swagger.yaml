@@ -1,0 +1,106 @@
+swagger: '2.0'
+info:
+  description: This is my app swagger api
+  version: 1.0.0
+  title: RESTful API V1
+  contact:
+    name: Nazmul Basher
+    url: 'https://nazmulb.wordpress.com'
+    email: nazmul.basher@gmail.com
+host: localhost
+basePath: /swagger/api/v1
+schemes:
+  - http
+consumes:
+  - application/json
+  - application/x-www-form-urlencoded
+  - multipart/form-data
+paths:
+  /users:
+    get:
+      tags:
+        - user
+      summary: Get all users
+      description: Get all the users as list
+      operationId: getAllUsers
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/User'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  '/users/{id}':
+    get:
+      tags:
+        - user
+      summary: Get user by id
+      description: Get the user by user id
+      operationId: getUserById
+      parameters:
+        - name: id
+          in: path
+          type: integer
+          description: User ID
+          required: true
+      responses:
+        '200':
+          description: Success
+          schema:
+            $ref: '#/definitions/User'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  User:
+    type: object
+    properties:
+      _id:
+        type: integer
+      username:
+        type: string
+      password:
+        type: string
+      profession:
+        type: string
+  ErrorTrace:
+    type: object
+    properties:
+      file:
+        type: string
+      line:
+        type: integer
+      function:
+        type: string
+      class:
+        type: string
+      object:
+        type: object
+      type:
+        type: string
+      args:
+        type: array
+        items:
+          type: object
+          properties:
+            status_code:
+              type: integer
+            message:
+              type: string
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      trace:
+        type: array
+        items:
+          $ref: '#/definitions/ErrorTrace'
+      fields:
+        type: string
